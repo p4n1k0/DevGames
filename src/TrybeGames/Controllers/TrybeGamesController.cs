@@ -47,7 +47,8 @@ public class TrybeGamesController
             Console.WriteLine("Opção inválida! Tente novamente.");
             return;
         }
-        try {
+        try
+        {
             var games = database.GetGamesDevelopedBy(gameStudio);
             Console.WriteLine("Jogos do estúdio de jogos " + gameStudio.Name + ":");
             foreach (var game in games)
@@ -71,7 +72,8 @@ public class TrybeGamesController
             Console.WriteLine("Pessoa jogadora não encontrada!");
             return;
         }
-        try {
+        try
+        {
             var games = database.GetGamesPlayedBy(player);
             if (games.Count() == 0)
             {
@@ -101,7 +103,8 @@ public class TrybeGamesController
             Console.WriteLine("Pessoa jogadora não encontrada!");
             return;
         }
-        try {
+        try
+        {
             var games = database.GetGamesOwnedBy(player);
             Console.WriteLine("Jogos comprados pela pessoa jogadora " + player.Name + ":");
             foreach (var game in games)
@@ -120,7 +123,6 @@ public class TrybeGamesController
     // 1. Crie a funcionalidde para adicionar uma nova pessoa jogadora ao banco de dados
     public void AddPlayer()
     {
-        // implementar
         Player newPlayer = new Player();
         newPlayer.Name = Console.ReadLine();
         newPlayer.Id = database.Players.Count + 1;
@@ -130,7 +132,6 @@ public class TrybeGamesController
     // 2. Crie a funcionalidade de adicionar um novo estúdio de jogos ao banco de dados
     public void AddGameStudio()
     {
-        // implementar
         GameStudio newGameStudio = new GameStudio();
         newGameStudio.Name = Console.ReadLine();
         newGameStudio.Id = database.GameStudios.Count + 1;
@@ -140,8 +141,17 @@ public class TrybeGamesController
     // 3. Crie a funcionalidade de adicionar novo Jogo ao Banco de dados
     public void AddGame()
     {
-        // implementar
-        Console.WriteLine("Ainda não é possível realizar essa funcionalidade!");
+        string gameName = Console.ReadLine();
+        string releaseDate = Console.ReadLine();
+        string gameType = Console.ReadLine();
+        DateTime formatedDate = DateTime.ParseExact(releaseDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+        Game newGame = new Game();
+        newGame.Name = gameName;
+        newGame.ReleaseDate = formatedDate;
+        newGame.GameType = (GameType)Convert.ToInt32(gameType);
+        newGame.Id = database.Games.Count + 1;
+        database.Games.Add(newGame);
     }
 
     public void ChangeGameStudio(Game game)
