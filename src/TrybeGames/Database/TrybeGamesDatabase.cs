@@ -23,8 +23,7 @@ public class TrybeGamesDatabase
     // 6. Crie a funcionalidade de buscar jogos comprados por uma pessoa jogadora
     public List<Game> GetGamesOwnedBy(Player playerEntry)
     {
-        // Implementar
-        throw new NotImplementedException();
+        return Games.Where(game => game.Players.Contains(playerEntry.Id)).ToList();
     }
 
 
