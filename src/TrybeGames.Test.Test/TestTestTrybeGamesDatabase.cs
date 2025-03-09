@@ -1,19 +1,30 @@
+using Xunit;
+using TrybeGames;
+using System;
 using FluentAssertions;
+using TrybeGames.Test;
 
-namespace TrybeGames.Test;
-
-[Collection("Sequential")]
-public class TestTrybeGamesDatabase
+public class TestReq10
 {
-    // 10. Implemente os testes da funcionalidade de buscar jogos jogados por uma pessoa jogadora
-    [Theory(DisplayName = "Deve testar se GetGamesPlayedBy retorna jogos jogados pela pessoa jogadora corretamente.")]
+    [Trait("Category", "10. Implemente os testes da funcionalidade de buscar jogos jogados por uma pessoa jogadora")]
+    [Theory(DisplayName = "Deve testar se TestGetGamesPlayedBy testa corretamente a função GetGamesPlayedBy.")]
     [MemberData(nameof(DataTestGetGamesPlayedBy))]
-    public void TestGetGamesPlayedBy(TrybeGamesDatabase databaseEntry, int playerIdEntry, List<Game> expected)
+    public void TestGetGamesPlayedBy(TrybeGamesDatabase databaseEntry, int playerIdEntry, List<Game> expected, bool isCorrect)
     {
-        databaseEntry.GetGamesPlayedBy(new Player { Id = playerIdEntry }).Should().BeEquivalentTo(expected);
+        TestTrybeGamesDatabase instance = new();
+        Action act = () => instance.TestGetGamesPlayedBy(databaseEntry, playerIdEntry, expected);
+        if (isCorrect)
+        {
+            act.Should().NotThrow<Xunit.Sdk.XunitException>();
+        }
+        else
+        {
+            act.Should().Throw<Xunit.Sdk.XunitException>();
+        }
+        
+        act.Should().NotThrow<NotImplementedException>();
     }
-
-    public static TheoryData<TrybeGamesDatabase, int, List<Game>> DataTestGetGamesPlayedBy => new TheoryData<TrybeGamesDatabase, int, List<Game>>
+    public static TheoryData<TrybeGamesDatabase, int, List<Game>, bool> DataTestGetGamesPlayedBy => new ()
     {
         {
             new TrybeGamesDatabase
@@ -56,8 +67,8 @@ public class TestTrybeGamesDatabase
                     DeveloperStudio = 1,
                     Players = new List<int> { 1 }
                 }
-            }
+            },
+            true
         }
     };
-
 }

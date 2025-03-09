@@ -57,7 +57,7 @@ public class TrybeGamesDatabase
             {
                 GameName = g.Name,
                 Players = Players.Where(player => g.Players.Contains(player.Id)).ToList(),
-            }).ToList()
+            }).ToList(),
         }).ToList();
     }
 

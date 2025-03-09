@@ -123,19 +123,22 @@ public class TrybeGamesController
     // 1. Crie a funcionalidde para adicionar uma nova pessoa jogadora ao banco de dados
     public void AddPlayer()
     {
-        Player newPlayer = new Player();
-        newPlayer.Name = Console.ReadLine();
-        newPlayer.Id = database.Players.Count + 1;
-        database.Players.Add(newPlayer);
+
+        database.Players.Add(new Player
+        {
+            Name = Console.ReadLine(),
+            Id = database.Players.Count + 1,
+        });
     }
 
     // 2. Crie a funcionalidade de adicionar um novo estúdio de jogos ao banco de dados
     public void AddGameStudio()
     {
-        GameStudio newGameStudio = new GameStudio();
-        newGameStudio.Name = Console.ReadLine();
-        newGameStudio.Id = database.GameStudios.Count + 1;
-        database.GameStudios.Add(newGameStudio);
+        database.GameStudios.Add(new GameStudio
+        {
+            Name = Console.ReadLine(),
+            Id = database.GameStudios.Count + 1,
+        });
     }
 
     // 3. Crie a funcionalidade de adicionar novo Jogo ao Banco de dados
@@ -144,14 +147,14 @@ public class TrybeGamesController
         string gameName = Console.ReadLine();
         string releaseDate = Console.ReadLine();
         string gameType = Console.ReadLine();
-        DateTime formatedDate = DateTime.ParseExact(releaseDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-
-        Game newGame = new Game();
-        newGame.Name = gameName;
-        newGame.ReleaseDate = formatedDate;
-        newGame.GameType = (GameType)Convert.ToInt32(gameType);
-        newGame.Id = database.Games.Count + 1;
-        database.Games.Add(newGame);
+        
+        database.Games.Add(new Game
+        {
+            Name = gameName,
+            ReleaseDate = DateTime.ParseExact(releaseDate, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+            GameType = (GameType)Convert.ToInt32(gameType),
+            Id = database.Games.Count + 1,
+        });
     }
 
     public void ChangeGameStudio(Game game)
