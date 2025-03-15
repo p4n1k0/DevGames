@@ -53,10 +53,10 @@ public class TrybeGamesDatabase
         .Select(studio => new StudioGamesPlayers
         {
             GameStudioName = GameStudios.First(games => games.Id == studio.Key).Name,
-            Games = studio.Select(g => new GamePlayer
+            Games = studio.Select(gamer => new GamePlayer
             {
-                GameName = g.Name,
-                Players = Players.Where(player => g.Players.Contains(player.Id)).ToList(),
+                GameName = gamer.Name,
+                Players = Players.Where(player => gamer.Players.Contains(player.Id)).ToList(),
             }).ToList(),
         }).ToList();
     }

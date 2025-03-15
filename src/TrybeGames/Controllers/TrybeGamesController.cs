@@ -123,7 +123,6 @@ public class TrybeGamesController
     // 1. Crie a funcionalidde para adicionar uma nova pessoa jogadora ao banco de dados
     public void AddPlayer()
     {
-
         database.Players.Add(new Player
         {
             Name = Console.ReadLine(),
@@ -144,10 +143,7 @@ public class TrybeGamesController
     // 3. Crie a funcionalidade de adicionar novo Jogo ao Banco de dados
     public void AddGame()
     {
-        string gameName = Console.ReadLine();
-        string releaseDate = Console.ReadLine();
-        string gameType = Console.ReadLine();
-        
+        ConsoleReadline(out string gameName, out string releaseDate, out string gameType);
         database.Games.Add(new Game
         {
             Name = gameName,
@@ -155,6 +151,13 @@ public class TrybeGamesController
             GameType = (GameType)Convert.ToInt32(gameType),
             Id = database.Games.Count + 1,
         });
+    }
+
+    private void ConsoleReadline(out string gameName, out string releaseDate, out string gameType)
+    {
+        gameName = Console.ReadLine();
+        releaseDate = Console.ReadLine();
+        gameType = Console.ReadLine();
     }
 
     public void ChangeGameStudio(Game game)
